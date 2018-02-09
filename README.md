@@ -1,4 +1,4 @@
-# Discord-Racing-Bot
+# Discord Racing Bot
 
 A simple racing bot made for the Hat community.
 
