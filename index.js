@@ -8,8 +8,6 @@ var raceOpened = false;
 var raceStarted = false;
 var playersReady = [];
 var index;
-var time;
-var screenshot;
 const category = "Any%" ; //hardcoded for now, will make it dynamic at some point
 
 //connects the bot to the discord users
@@ -33,7 +31,7 @@ client.on("message", (message) => {
   const command = args.shift().toLowerCase();
 
   //opens the race
-  if(message.content.startsWith(prefix + "openrace")){
+  if(command === "openrace"){
     if(raceOpened == false && raceStarted == false){
       message.channel.send("A new race was opened. To join the current race type !join.");
       raceOpened = true;
@@ -57,7 +55,7 @@ client.on("message", (message) => {
   }
 
   //makes the user able to join the race
-  if (message.content.startsWith(prefix + "join")){
+  if (command === "join"){
     var playerId = message.author.id;
     var playerName = message.author;
     if(raceOpened == true && raceStarted == false){
@@ -74,7 +72,7 @@ client.on("message", (message) => {
   }
 
   //starts the race, this will eventually be removed
-  if(message.content.startsWith(prefix + "startrace")){
+  if(command === "startrace"){
     if(raceOpened == true && raceStarted == false){
       if(playersReady.length > 0){
         if(playersReady.some(item => item.ready == false)){
@@ -85,7 +83,7 @@ client.on("message", (message) => {
           raceOpened = true;
         }
       }else{
-        message.channel.send("Error: no one joined the race.")
+        message.channel.send("Error: no one joined the race.");
       }
     }else{
       message.channel.send("Error: a race was never opened or a race is going on.");
@@ -130,7 +128,7 @@ client.on("message", (message) => {
   }
 
   //gives the user the racing role
-  if(message.content.startsWith(prefix + "getrole")){
+  if(command === "getrole"){
     const guildMember = message.member;
     if (message.member.roles.find("name", "racing")){
       message.channel.send("Error: you already have the role.");
@@ -141,7 +139,7 @@ client.on("message", (message) => {
   }
 
   //removes the role from the user
-  if(message.content.startsWith(prefix + "removerole")){
+  if(command === "removerole"){
     const guildMember = message.member;
     if (message.member.roles.find("name", "racing")){
       guildMember.removeRole(racingRole).catch(console.error);
@@ -151,7 +149,7 @@ client.on("message", (message) => {
     }
   }
 
-  if(message.content.startsWith(prefix + "help")){
+  if(command === "help"){
     message.channel.send({embed: {
       color: 3447003,
       author: {
