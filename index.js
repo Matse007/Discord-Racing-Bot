@@ -2,14 +2,14 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
+const url = require("short-url");
 
 let prefix = config.prefix;
 var raceOpened = false;
 var raceStarted = false;
 var playersReady = [];
 var index;
-const category = "Any%" ; //hardcoded for now, will make it dynamic at some point
-
+var category;
 //connects the bot to the discord users
 client.login(config.token);
 
@@ -31,9 +31,10 @@ client.on("message", (message) => {
   const command = args.shift().toLowerCase();
 
   //opens the race
-  if(command === "openrace"){
+  if(command === "newrace"){
     if(raceOpened == false && raceStarted == false){
-      message.channel.send("A new race was opened. To join the current race type !join.");
+      category = args[0];
+      message.channel.send("A new " + category + "race was opened. To join the current race type !join.");
       raceOpened = true;
     }else{
       message.channel.send("Error: a race was already opened, please join the current race or wait until it finishes.");
@@ -93,6 +94,18 @@ client.on("message", (message) => {
   //makes a user forfeit the race, making their time invalid
   if(message.content.startsWith(prefix + "forfeit")){
     //finish
+    if(raceOpened == true && raceStarted == true){
+      if(playersReady.find(hasPlayerJoined) != undefined){
+        playersReady[index].finished = true;
+        playersReady[index].time = "forfeit";
+        playersReady[index].verification = "forfeit";
+        message.channel.send("Your result has been submitted. Thank you for participating.");
+      }else{
+        message.channel.send("Error: you never joined a race.");
+      }
+    }else{
+      message.channel.send("Error: a race was never opened, or started..");
+    }
   }
 
   //makes the user finish a race, time and screenshot verification will be validated in the future
@@ -112,9 +125,10 @@ client.on("message", (message) => {
           }else{
             message.channel.send("The race is done! Thank you all for participating!");
             playersReady.sort(compareTimes);
-            playersReady.forEach(function (player){
-              message.channel.send("Player: " + player.name.username + " | Time: " + player.time + " | Verification: <" + player.verification + ">");
+            playersReady.forEach(function(player){
+              message.channel.send("Player: " + player.name.username + " | Time: " + player.time + " | Verification: " + url.shorten(player.verification));
             });
+
             playersReady = [];
             raceOpened = false;
             raceStarted = false;
@@ -209,6 +223,11 @@ client.on("message", (message) => {
     if (player1.time > player2.time)
       return player1.time - player2.time;
   }
+
+  //for future use
+  url.shorten(url, function(err, url) {
+    console.log(url);
+  });
 
 });
 
