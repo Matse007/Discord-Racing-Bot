@@ -2,7 +2,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
-const url = require("short-url");
 
 let prefix = config.prefix;
 var raceOpened = false;
@@ -97,14 +96,13 @@ client.on("message", (message) => {
     if(raceOpened == true && raceStarted == true){
       if(playersReady.find(hasPlayerJoined) != undefined){
         playersReady[index].finished = true;
-        playersReady[index].time = "forfeit";
-        playersReady[index].verification = "forfeit";
+        playersReady[index].time = "Forfeit";
         message.channel.send("Your result has been submitted. Thank you for participating.");
       }else{
         message.channel.send("Error: you never joined a race.");
       }
     }else{
-      message.channel.send("Error: a race was never opened, or started..");
+      message.channel.send("Error: a race was never opened, or started.");
     }
   }
 
@@ -118,7 +116,6 @@ client.on("message", (message) => {
         }else{
           playersReady[index].finished = true;
           playersReady[index].time = args[0];
-          playersReady[index].verification = args[1];
           message.channel.send("Your time has been saved! Thank you for participating!");
           if(playersReady.some(item => item.finished == false)){
             return;
@@ -126,9 +123,8 @@ client.on("message", (message) => {
             message.channel.send("The race is done! Thank you all for participating!");
             playersReady.sort(compareTimes);
             playersReady.forEach(function(player){
-              message.channel.send("Player: " + player.name.username + " | Time: " + player.time + " | Verification: " + url.shorten(player.verification));
+              message.channel.send("Player: " + player.name.username + " | Time: " + player.time);
             });
-
             playersReady = [];
             raceOpened = false;
             raceStarted = false;
@@ -173,7 +169,7 @@ client.on("message", (message) => {
       title: "List of commands",
       description: "Here's a list of commands with details of each one of them.",
       fields: [{
-        name: "!openrace",
+        name: "!newrace Category",
         value: "Opens a race, you can choose which category you want to race, as long as it's Any%, ATP, AA or AR."
       },
       {
@@ -193,7 +189,7 @@ client.on("message", (message) => {
         value: "Use this command to forfeit the race."
       },
       {
-        name: "!done yourtime screenshot",
+        name: "!done yourtime",
         value: "Use this command when you finished the run. Keep in mind you will need to submit a time and a screenshot for verification, otherwise your time won't be allowed on the final results."
       },
       {
@@ -201,7 +197,7 @@ client.on("message", (message) => {
         value: "Use this command to get the 'racing' role."
       },
       {
-        name: "!done yourtime screenshot",
+        name: "!removerolet",
         value: "Use this command to remove the 'racing' role from your roles."
       }
       ],
@@ -225,9 +221,6 @@ client.on("message", (message) => {
   }
 
   //for future use
-  url.shorten(url, function(err, url) {
-    console.log(url);
-  });
 
 });
 
