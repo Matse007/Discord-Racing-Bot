@@ -43,7 +43,7 @@ client.on("message", (message) => {
     }
   }
   //puts the user on the ready status
-  if (message.content.startsWith(prefix + "ready")) {
+  if (command === "ready") {
     if (raceOpened == true && raceStarted == false){
       if(playersReady.find(hasPlayerJoined) != undefined){
         index = playersReady.findIndex(hasPlayerJoined);
@@ -57,6 +57,19 @@ client.on("message", (message) => {
     }
   }
 
+  if (command === "unready") {
+    if (raceOpened == true && raceStarted == false){
+      if(playersReady.find(hasPlayerJoined) != undefined){
+        index = playersReady.findIndex(hasPlayerJoined);
+        playersReady[index].ready = false;
+        message.channel.send(message.author + " is not ready!");
+      }else{
+        message.channel.send("Error: you never joined a race. To join the current opened race type !join.");
+      }
+    }else{
+      message.channel.send("Error: you never joined a race, or a race was never opened." );
+    }
+  }
   //makes the user able to join the race
   if (command === "join"){
     var playerId = message.author.id;
@@ -206,6 +219,10 @@ client.on("message", (message) => {
       {
         name: "!ready",
         value: "Use this command when you're ready to race!"
+      },
+      {
+        name: "!unready",
+        value: "Use this command to notify you're still not ready to race!"
       },
       {
         name: "!startrace",
