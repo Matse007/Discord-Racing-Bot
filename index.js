@@ -33,7 +33,7 @@ client.on("message", (message) => {
   if(command === "newrace"){
     if(raceOpened == false && raceStarted == false){
       category = args[0];
-      message.channel.send("A new " + category + "race was opened. To join the current race type !join.");
+      message.channel.send("A new " + category + " race was opened. To join the current race type !join.");
       raceOpened = true;
     }else{
       message.channel.send("Error: a race was already opened, please join the current race or wait until it finishes.");
@@ -60,7 +60,7 @@ client.on("message", (message) => {
     var playerName = message.author;
     if(raceOpened == true && raceStarted == false){
       if(playersReady.find(hasPlayerJoined) != undefined){
-        message.channel.send("Error: you already joined this race.");
+        message.channel.send("Error: you already joined this race. If you decided to unjoin this race, please wait until the next one.");
       }else {
         var playerObject = {id: playerId, name: playerName, ready: false, finished: false, time: "00:00", verification: null};
         playersReady.push(playerObject);
@@ -78,7 +78,7 @@ client.on("message", (message) => {
         if(playersReady.some(item => item.ready == false)){
           message.channel.send("Error: some players are still not ready, please stand by.");
         }else {
-          message.channel.send("The race is gonna start in 100 years! gotem");
+          message.channel.send("The race is on! You can start the race whenever, good luck have fun!");
           raceStarted = true;
           raceOpened = true;
         }
@@ -90,8 +90,24 @@ client.on("message", (message) => {
     }
   }
 
+  if(command === "unjoin"){
+    //finish
+    if(raceOpened == true && raceStarted == false){
+      if(playersReady.find(hasPlayerJoined) != undefined){
+        playersReady[index].ready = true;
+        playersReady[index].finished = true;
+        playersReady[index].time = "Unjoined";
+        message.channel.send("You have succesfully unjoined the race. Keep in mind you can't re join this race now.");
+      }else{
+        message.channel.send("Error: you never joined a race.");
+      }
+    }else{
+      message.channel.send("Error: a race was never opened, or started.");
+    }
+  }
+
   //makes a user forfeit the race, making their time invalid
-  if(message.content.startsWith(prefix + "forfeit")){
+  if(command === "forfeit"){
     //finish
     if(raceOpened == true && raceStarted == true){
       if(playersReady.find(hasPlayerJoined) != undefined){
@@ -106,13 +122,20 @@ client.on("message", (message) => {
     }
   }
 
+  if(command === "kill"){
+    //kill the race
+    playersReady = [];
+    raceOpened = false;
+    raceStarted = false;
+    message.channel.send("The race has succesfully been deleted.");
+  }
   //makes the user finish a race, time and screenshot verification will be validated in the future
   if(command === "done"){
     if(raceOpened == true && raceStarted == true){
       if(playersReady.find(hasPlayerJoined) != undefined){
         index = playersReady.findIndex(hasPlayerJoined);
         if(playersReady[index].finished == true){
-          message.channel.send("Error: you already submitted your time. If you want to edit your current time, type !edittime");
+          message.channel.send("Error: you already submitted your time");
         }else{
           playersReady[index].finished = true;
           playersReady[index].time = args[0];
@@ -129,6 +152,7 @@ client.on("message", (message) => {
             raceOpened = false;
             raceStarted = false;
             //foreach player display them on their respective positions according to their time
+            //FIX TIME COMPARISON YOU LAZY FUCK
           }
         }
       }
@@ -182,22 +206,30 @@ client.on("message", (message) => {
       },
       {
         name: "!startrace",
-        value: "Use this command to start the race. After using this command, a 30 seconds countdown will start."
+        value: "Use this command to start the race. After using this command, you can start the race whenever you want, there's not cowntdown."
+      },
+      {
+        name: "!unjoin",
+        value: "Lets you un join the race before starting it. Keep in mind you won't be able to re join that race again."
       },
       {
         name: "!forfeit",
         value: "Use this command to forfeit the race."
       },
       {
+        name: "!kill",
+        value: "Use this to completely kill the current race."
+      },
+      {
         name: "!done yourtime",
-        value: "Use this command when you finished the run. Keep in mind you will need to submit a time and a screenshot for verification, otherwise your time won't be allowed on the final results."
+        value: "Use this command when you finished the run. No need for a veritifacion screenshot, this will be added in the future."
       },
       {
         name: "!getrole",
         value: "Use this command to get the 'racing' role."
       },
       {
-        name: "!removerolet",
+        name: "!removerole",
         value: "Use this command to remove the 'racing' role from your roles."
       }
       ],
