@@ -21,6 +21,9 @@ client.on("message", (message) => {
   //message variable declarations
   let racingRole = message.guild.roles.find("name", "racing");
 
+  if (message.content.startsWith("shockwve")) {
+    message.channel.send("white graps LMAO");
+  }
   //any message done by the bot will return nothing
   if(message.author.bot) return;
   //for performance purposes
