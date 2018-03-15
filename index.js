@@ -57,6 +57,11 @@ client.on("message", (message) => {
     }
   }
 
+  if (command === "seed")
+  {
+    message.channel.send("https://shockwve.github.io/?seed=" + Math.floor(Math.random() * 999999) + 1);
+  }
+
   if (command === "unready") {
     if (raceOpened == true && raceStarted == false){
       if(playersReady.find(hasPlayerJoined) != undefined){
