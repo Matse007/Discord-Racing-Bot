@@ -121,8 +121,8 @@ client.on("message", (message) => {
               if(timer > 0){
                 message.channel.send("```" + timer + "```");
               }else{
-                clearInterval(a);
                 message.channel.send("```GO!```");
+                clearInterval(a);
               }
                 }, 1000);
             }, 30000);
