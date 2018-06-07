@@ -73,7 +73,7 @@ client.on("message", (message) => {
     message.channel.send("https://shockwve.github.io/?seed=" + Math.floor(Math.random() * 999999) + 1);
   }
 
-  if (command === "unready") {
+  if (command === "notready") {
     if (raceOpened == true && raceStarted == false){
       if(playersReady.find(hasPlayerJoined) != undefined){
         index = playersReady.findIndex(hasPlayerJoined);
@@ -295,7 +295,7 @@ client.on("message", (message) => {
         value: "Use this command when you're ready to race."
       },
       {
-        name: "$unready",
+        name: "$notready",
         value: "Use this command to notify you're still not ready to race."
       },
       {
@@ -309,10 +309,6 @@ client.on("message", (message) => {
       {
         name: "$forfeit",
         value: "Use this command to forfeit the race."
-      },
-      {
-        name: "$kill",
-        value: "Use this to completely kill the current race."
       },
       {
         name: "$done yourtime (e.g: xx:xx:xx)",
