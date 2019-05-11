@@ -93,6 +93,4 @@ module.exports = {
         ",'" + result.time +
         "'," + result.placement + ")"
 	).join(",") + ";";
-*/	
-
-}
+}*/
