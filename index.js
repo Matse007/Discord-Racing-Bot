@@ -2,7 +2,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require("./config.json");
-const db = require('./db');
+//const db = require('./db');
 
 var fs = require('fs');
 
@@ -162,17 +162,32 @@ client.on("message", (message) => {
     {
       var roleColor = checkValidColor(subCommand) ? colorList[subCommand] : subCommand;
 
-      checkForColorRole();
+      var currentColor = guild.roles.find(role => role.name === message.author.username);
+
+      console.log("");
+      if(currentColor)
+      {
+        console.log("");
+        var curColRole = guild.roles.find(role => role.name === message.author.username);
+        curColRole.delete();
+        console.log("");
+        message.channel.send(`Successfully deleted ${message.author.username}'s color role`).then(msg => {msg.delete(3000)})
+        console.log("");
+      }
 
       // Create a new role with data
+      console.log("");
       guild.createRole({
         name: message.author.username,
         color: roleColor,
-        position: guild.roles.size - 4
+        position: guild.roles.size - 2
       }).then(role => {
-          message.channel.send(`Created new role with name ${role.name} and with color ${subCommand}`).then(msg => {msg.delete(5000)})
-          message.member.addRole(role).catch(console.error);
-          message.channel.send(`Assigned user ${message.author.username} with new role`).then(msg => {msg.delete(5000)})
+        console.log("");
+        message.channel.send(`Created new role with name ${role.name} and with color ${subCommand}`).then(msg => {msg.delete(5000)})
+        console.log("");
+        message.member.addRole(role).catch(console.error);
+        console.log("");
+        message.channel.send(`Assigned user ${message.author.username} with new role`).then(msg => {msg.delete(5000)})
       })
     }
     else if(subCommand === "remove" || subCommand === "delete")
