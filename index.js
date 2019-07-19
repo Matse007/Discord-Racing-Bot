@@ -89,7 +89,7 @@ client.on("message", (message) => {
   let guild = message.guild;
 
   //message variable declarations
-  let racingRole = guild.roles.find("name", "racing");  
+  let racingRole = guild.roles.find(role => role.name = 'racing');  
 
   //any message done by the bot will return nothing
   if(message.author.bot) return;
@@ -120,43 +120,37 @@ client.on("message", (message) => {
     var subCommand = args[0].toLowerCase();
     if (subCommand === "help")
     {
-      if (args[1] != undefined && args[1].toLowerCase() === "colors")
-      {
-
-      }
-      else
       message.channel.send({embed: {
-      color: 3447003,
-      author: {
-        name: client.user.username,
-        icon_url: client.user.avatarURL
-      },
-      title: "Color Help",
-      description: "Here's a list of commands to help you color your name",
-      fields: [{
-        name: "Command format",
-        value: "$colorme <color_here> | <color_here> is a color written in Hex (i.e. #32CD32) or text (red or yellow)\nExamples: \n\t$colorme #32CD32 \n\t$colorme green"
-      },
-      {
-        name: "Preset colors to choose from",
-        value: "Use any of these colors if you need a color to choose from: \n red, green, blue, black, white, yellow, magenta, cyan, purple, orange, pink, lime, limegreen"
-      },
-      {
-        name: "Custom Hex Color",
-        value: "Use this to find the perfect hex color for your name. \nColor Picker: https://www.google.com/search?q=color+picker"
-      },
-      {
-        name: "Delete Custom Color",
-        value: "Type ($colorme delete) or ($colorme remove) to remove your custom color"
-      }
-      ],
-      timestamp: new Date(),
-      footer: {
-        icon_url: client.user.avatarURL,
-        text: "Authors: Enhu/Shockwve | Rumbi v1.2.2"
-      }
-    }
-    });
+        color: 3447003,
+        author: {
+          name: client.user.username,
+          icon_url: client.user.avatarURL
+        },
+        title: "Color Help",
+        description: "Here's a list of commands to help you color your name",
+        fields: [{
+          name: "Command format",
+          value: "$colorme <color_here> | <color_here> is a color written in Hex (i.e. #32CD32) or text (red or yellow)\nExamples: \n\t$colorme #32CD32 \n\t$colorme green"
+        },
+        {
+          name: "Preset colors to choose from",
+          value: "Use any of these colors if you need a color to choose from: \n red, green, blue, black, white, yellow, magenta, cyan, purple, orange, pink, lime, limegreen"
+        },
+        {
+          name: "Custom Hex Color",
+          value: "Use this to find the perfect hex color for your name. \nColor Picker: https://www.google.com/search?q=color+picker"
+        },
+        {
+          name: "Delete Custom Color",
+          value: "Type ($colorme delete) or ($colorme remove) to remove your custom color"
+        }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "Authors: Enhu/Shockwve | Rumbi v1.2.2"
+        }
+      }});
     }
     else if(colorRegex.test(subCommand.toUpperCase())  || checkValidColor(subCommand))
     {
@@ -164,30 +158,22 @@ client.on("message", (message) => {
 
       var currentColor = guild.roles.find(role => role.name === message.author.username);
 
-      console.log("");
       if(currentColor)
       {
-        console.log("");
         var curColRole = guild.roles.find(role => role.name === message.author.username);
-        curColRole.delete();
-        console.log("");
-        message.channel.send(`Successfully deleted ${message.author.username}'s color role`).then(msg => {msg.delete(3000)})
-        console.log("");
+        curColRole.delete()
+        .then(deleted => console.log(`Deleted role ${deleted.name}`))
+        .catch(console.error);       
       }
 
       // Create a new role with data
-      console.log("");
       guild.createRole({
         name: message.author.username,
         color: roleColor,
         position: guild.roles.size - 2
       }).then(role => {
-        console.log("");
-        message.channel.send(`Created new role with name ${role.name} and with color ${subCommand}`).then(msg => {msg.delete(5000)})
-        console.log("");
         message.member.addRole(role).catch(console.error);
-        console.log("");
-        message.channel.send(`Assigned user ${message.author.username} with new role`).then(msg => {msg.delete(5000)})
+        message.react('☑').then(console.log).catch(console.error);
       })
     }
     else if(subCommand === "remove" || subCommand === "delete")
@@ -201,7 +187,7 @@ client.on("message", (message) => {
     
   if(command === "addmeme"){
 
-    if(message.member.roles.find("name", "Admins") || message.author.username == "Shockwve"){
+    if(message.member.roles.find(role => role.name = 'Admins') || message.author.username == "Shockwve"){
       var newMeme = args.join(' ').split('|');
       message.channel.send("Adding new meme: " + newMeme[0].toLowerCase() + " -> " + newMeme[1])
       memes[newMeme[0].toLowerCase()] = newMeme[1];
@@ -213,7 +199,7 @@ client.on("message", (message) => {
 
   if (command === "delmeme"){
 
-    if(message.member.roles.find("name", "Admins") || message.author.id == "72182588885700608"){
+    if(message.member.roles.find(role => role.name = 'racing') || message.author.id == "72182588885700608"){
       if (args.length <= 0)
       {
         message.channel.send("Next time, try telling me what to delete ya goofnut...");
@@ -236,7 +222,7 @@ client.on("message", (message) => {
   }
 
   if(command === "reset"){
-    if(message.member.roles.find("name", "Moderators") || message.member.roles.find("name", "Discord Mod") || message.author.id == "92816669910519808"){
+    if(message.member.roles.find(role => role.name = 'Moderators') || message.member.roles.find(role => role.name = 'Discord Mod') || message.author.id == "92816669910519808"){
 	resetBot(message.channel);
     }
   }
@@ -431,7 +417,7 @@ client.on("message", (message) => {
   //gives the user the racing role
   if(command === "getrole"){
     const guildMember = message.member;
-    if (message.member.roles.find("name", "racing")){
+    if (message.member.roles.find(role => role.name = 'racing')){
       message.channel.send("Error: you already have the role.").then(msg => {msg.delete(5000)});
     }else{
       guildMember.addRole(racingRole).catch(console.error);
@@ -442,7 +428,7 @@ client.on("message", (message) => {
   //removes the role from the user
   if(command === "removerole"){
     const guildMember = message.member;
-    if (message.member.roles.find("name", "racing")){
+    if (message.member.roles.find(role => role.name = 'racing')){
       guildMember.removeRole(racingRole).catch(console.error);
       message.channel.send("Success!").then(msg => {msg.delete(5000)});
     }else{
@@ -546,12 +532,14 @@ client.on("message", (message) => {
 
     if(currentColor)
     {
-      guild.roles.find(role => role.name === message.author.username).delete();
-      message.channel.send(`Successfully deleted ${message.author.username}'s color role`).then(msg => {msg.delete(3000)})
+      currentColor.delete()
+      .then(deleted => console.log(`Deleted role ${deleted.name}`))
+      .catch(console.error); 
+      message.react('☑').then(console.log).catch(console.error);
     }
     else
     {
-      message.channel.send("**Error:** you have no current color role.").then(msg => {msg.delete(5000)});
+      message.channel.send("**Error:** you have no current color role.");
     }
   }
 
