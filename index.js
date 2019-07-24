@@ -1,14 +1,13 @@
 //bot variable declarations
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const config = require("./config.json");
 //const db = require('./db');
 
 var fs = require('fs');
 
 var memes = require('./memes.json');
 
-let prefix = config.prefix;
+let prefix = process.env.PREFIX;
 var timeRegex = /^(?:(?:([01]?\d|2[0-3]):)([0-5]?\d):)([0-5]?\d)$/;
 var colorRegex = /^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/;
 var raceOpened = false;
@@ -31,7 +30,7 @@ var colorList = JSON.parse(fs.readFileSync('colors.json', 'utf8'));
 var messageLogging = false;
 
 //connects the bot to the discord users
-client.login(config.token);
+client.login(process.env.BOT_TOKEN);
 
 var stdin = process.openStdin();
 
@@ -500,12 +499,12 @@ client.on("message", (message) => {
   }
 
 //reset the bot
-  function resetBot(channel) {
+  /*function resetBot(channel) {
     //send channel a message that you're resetting bot
     channel.send('Resetting...')
     .then(msg => client.destroy())
-    .then(() => client.login(config.token));
-  }
+    .then(() => client.login(process.env.BOT_TOKEN));
+  }*/
   //finds a user on the players array
   function hasPlayerJoined(player){
     return player.id == message.author.id;
