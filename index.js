@@ -166,17 +166,19 @@ client.on("message", (message) => {
           message.react('☑').then(console.log).catch(console.error);            
           })
         .catch(console.error);       
+      }else{
+        // Create a new role with data
+        guild.createRole({
+          name: message.author.username,
+          color: roleColor,
+          position: guild.roles.size - 2
+        }).then(role => {
+          message.member.addRole(role).catch(console.error);
+          message.react('☑').then(console.log).catch(console.error);
+        })
       }
 
-      // Create a new role with data
-      /*guild.createRole({
-        name: message.author.username,
-        color: roleColor,
-        position: guild.roles.size - 2
-      }).then(role => {
-        message.member.addRole(role).catch(console.error);
-        message.react('☑').then(console.log).catch(console.error);
-      })*/
+      
     }
     else if(subCommand === "remove" || subCommand === "delete")
     {
