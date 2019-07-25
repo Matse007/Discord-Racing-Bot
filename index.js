@@ -160,20 +160,23 @@ client.on("message", (message) => {
       if(currentColor)
       {
         var curColRole = guild.roles.find(role => role.name === message.author.username);
-        curColRole.delete()
-        .then(deleted => console.log(`Deleted role ${deleted.name}`))
+        curColRole.edit({ color: roleColor })
+        .then(color => { 
+          console.log(`Changed color of role ${curColRole.name} to ${color.name}`);
+          message.react('☑').then(console.log).catch(console.error);            
+          })
         .catch(console.error);       
       }
 
       // Create a new role with data
-      guild.createRole({
+      /*guild.createRole({
         name: message.author.username,
         color: roleColor,
         position: guild.roles.size - 2
       }).then(role => {
         message.member.addRole(role).catch(console.error);
         message.react('☑').then(console.log).catch(console.error);
-      })
+      })*/
     }
     else if(subCommand === "remove" || subCommand === "delete")
     {

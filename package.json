@@ -20,6 +20,7 @@
   "homepage": "https://github.com/synicalsyntax/discord.js-heroku#readme",
   "dependencies": {
     "discord.js": "^11.5.1",
+    "heroku": "^7.26.2",
     "pkg": "^4.3.7"
   }
 }
