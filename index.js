@@ -1,4 +1,7 @@
-//bot variable declarations
+/*
+* BOT VARIABLE DECLARATIONS
+*/
+
 const Discord = require("discord.js");
 const client = new Discord.Client();
 //const db = require('./db');
@@ -21,17 +24,33 @@ var consoleChannel = "";
 /*
 * JSON FILES
 */
+
 var channelList = JSON.parse(fs.readFileSync('channels.json', 'utf8'));
 var colorList = JSON.parse(fs.readFileSync('colors.json', 'utf8'));
 
 /*
-* DEBUGGING VARAIBLES
+* BOT CONNECTION
 */
-var messageLogging = false;
 
 //connects the bot to the discord users
 client.login(process.env.BOT_TOKEN);
 
+//bot logged in successfully and it's ready to be used
+client.on("ready", () => {
+  client.user.setPresence({
+        game: {
+            name: 'in Hat Kid\'s Spaceship',
+            type: 0
+        }
+    });
+  console.log(`Ready to server in ${client.channels.size} channels on ${client.guilds.size} servers, for a total of ${client.users.size} users.`);
+});
+
+/*
+* DEBUGGING STUFF
+*/
+
+var messageLogging = false;
 var stdin = process.openStdin();
 
 stdin.addListener("data", function(d) {
@@ -57,27 +76,13 @@ stdin.addListener("data", function(d) {
     }
 });
 
-//bot logged in successfully and it's ready to be used
-client.on("ready", () => {
-  client.user.setPresence({
-        game: {
-            name: 'in Hat Kid\'s Spaceship',
-            type: 0
-        }
-    });
-
-  // client.channels.forEach((channel, i) => {
-  //   console.log (`\"${channel.name}\": \"${channel.id}\",`);
-  // });
-
-  console.log(`Ready to server in ${client.channels.size} channels on ${client.guilds.size} servers, for a total of ${client.users.size} users.`);
-});
-
-//console.log(client.channels);
-
+/*
+* BOT FUNCTIONS
+*/
 
 client.on("message", (message) => {
 
+  //for debugging
   if (messageLogging)
   {
     console.log("[" + message.channel.name + "] (" 
@@ -95,13 +100,13 @@ client.on("message", (message) => {
 
   memeCommand(message);
 
+  if(message.channel.id == 633348700969893889 && message.channel.id == 636614490904854569) return;
+
   //for performance purposes
   if (!message.content.startsWith(prefix)) return;
 
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
-
-  //console.log(args);
 
   if(command === "msglog")
   {
