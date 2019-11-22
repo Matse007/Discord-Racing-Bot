@@ -98,9 +98,9 @@ client.on("message", (message) => {
   //any message done by the bot will return nothing
   if(message.author.bot) return;
 
-  memeCommand(message);
-
   if(message.channel.id == 633348700969893889 && message.channel.id == 636614490904854569) return;
+
+  memeCommand(message);
 
   //for performance purposes
   if (!message.content.startsWith(prefix)) return;
