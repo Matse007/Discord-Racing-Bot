@@ -100,7 +100,9 @@ client.on("message", (message) => {
 
   var botTestChannelId = 524983793585487872;
   var botTalkChannelId = 415000409963495424;
-  if(message.channel.id != botTestChannelId || message.channel.id != botTalkChannelId) return;
+  
+  console.log(message.channel.id);
+  if(message.channel.id != botTalkChannelId) return;
 
   memeCommand(message);
 
