@@ -98,12 +98,11 @@ client.on("message", (message) => {
   //any message done by the bot will return nothing
   if(message.author.bot) return;
 
-  var botTestChannelId = 524983793585487872;
   var botTalkChannelId = 415000409963495424;
-  
-  console.log(message.channel.id);
+
   if(message.channel.id != botTalkChannelId) return;
 
+  
   memeCommand(message);
 
   //for performance purposes
