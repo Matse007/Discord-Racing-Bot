@@ -30,6 +30,10 @@ var colorList = JSON.parse(fs.readFileSync('colors.json', 'utf8'));
 */
 var messageLogging = false;
 
+// Channel variables
+
+var botTalkChannelId = "415000409963495424";
+
 //connects the bot to the discord users
 client.login(config.token);
 
@@ -85,6 +89,9 @@ client.on("message", (message) => {
       + message.author.username + "<>" + message.author.id + ") - " 
       + message.content);
   }
+
+  if(message.channel.id != botTalkChannelId)
+    return;
 
   let guild = message.guild;
 
