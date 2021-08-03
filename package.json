@@ -1,26 +1,19 @@
 {
-  "name": "rumbi-heroku",
+  "name": "rumbi_v2",
   "version": "1.0.0",
   "description": "Rumbi bot for Boop Troop.",
   "main": "index.js",
-  "engines": {
-    "node": "10.4.0",
-    "npm": "6.4.1"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "keywords": [
-    "heroku",
     "discord.js"
   ],
-  "author": "Enhu",
+  "author": "",
   "license": "MIT",
-  "homepage": "https://github.com/synicalsyntax/discord.js-heroku#readme",
   "dependencies": {
-    "discord.js": "^11.5.1",
-    "heroku": "^7.26.2",
-    "pkg": "^4.3.7"
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0"
   }
 }
