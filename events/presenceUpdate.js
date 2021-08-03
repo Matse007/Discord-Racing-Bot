@@ -1,9 +1,9 @@
 var fs = require("fs");
-let cfg = JSON.parse(fs.readFileSync("./ressources/config.json", "utf8"));
+let cfg = JSON.parse(fs.readFileSync("./ressources/cfg.json", "utf8"));
 module.exports = {
   name: "presenceUpdate",
   execute(oldPresence, newPresence, client) {
-    const guildid = cfg.streamingguilds.testing;
+    const guildid = cfg.streamingguilds.booptroop;
     guild = client.guilds.cache.get(guildid);
     //this requires that a streaming role does exist.
     role = guild.roles.cache.find((r) => r.name === "Streaming");

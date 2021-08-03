@@ -1,5 +1,5 @@
 var fs = require("fs");
-const cfg = JSON.parse(fs.readFileSync("./ressources/config.json", "utf8"));
+const cfg = JSON.parse(fs.readFileSync("./ressources/cfg.json", "utf8"));
 const memeaddon = require("../addons/meme");
 module.exports = {
   name: "message",
