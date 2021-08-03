@@ -1,5 +1,5 @@
 var fs = require("fs");
-const cfg = JSON.parse(fs.readFileSync("./ressources/config.json", "utf8"));
+const cfg = JSON.parse(fs.readFileSync("./ressources/cfg.json", "utf8"));
 module.exports = {
   name: "ksarg",
   description: "For talking in the main channel of the server",
