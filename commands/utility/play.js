@@ -119,11 +119,11 @@ module.exports = {
       msg.react("🤷");
 
       const yesFilter = (reaction, user) =>
-        reaction.emoji.name === "👍" && user.id === message.author.id;
+        reaction.emoji.name === "👍";
       const noFilter = (reaction, user) =>
-        reaction.emoji.name === "👎" && user.id === message.author.id;
+        reaction.emoji.name === "👎";
       const maybeFilter = (reaction, user) =>
-        reaction.emoji.name === "🤷" && user.id === message.author.id;
+        reaction.emoji.name === "🤷";
 
       const yes = msg.createReactionCollector(yesFilter, {
         time: timeout,
