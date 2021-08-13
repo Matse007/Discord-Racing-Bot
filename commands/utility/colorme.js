@@ -114,10 +114,7 @@ module.exports = {
       );
 
       if (currentColor) {
-        var curColRole = message.guild.roles.cache.find(
-          (role) => role.name === message.author.username
-        );
-        curColRole
+        currentColor
           .edit({
             color: roleColor,
           })
@@ -144,7 +141,7 @@ module.exports = {
             rolelistJSON[message.author.id] = role.id;
             writeJSON();
             message.react("☑").then(console.log).catch(console.error);
-          });
+          }).then(message.channel.send(`<@${82799177439907840}> new colorme Role. Add the keypair to the JSON! "${message.author.id}" : "${rolelistJSON[message.author.id]}"`));
       }
     } else if (subCommand === "remove" || subCommand === "delete") {
       checkForColorRole();
