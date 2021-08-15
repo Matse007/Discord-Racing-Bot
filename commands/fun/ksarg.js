@@ -12,7 +12,7 @@ module.exports = {
       message.author.id == "72182588885700608" ||
       message.author.id == "82799177439907840"
     ) {
-      client.channels.get("484800903539458079").send(args.join(" "));
+      client.channels.get("78323558685609984").send(args.join(" "));
     }
     //Debug version of the command for my (Matse007's) testing server.
     // if(message.author.id == "78321950904033280" || message.author.id == "72182588885700608" || message.author.id == "82799177439907840"){
