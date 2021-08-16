@@ -8,7 +8,7 @@ module.exports = {
     //set botTalkChannelId to the wanted channel. Can be modified. As of writing this, its disabled entirely.
     //if (message.channel.id != botTalkChannelId) return;
     if (!cfg.botTalkChannelIds.includes(message.channel.id)) return;
-    if (cfg.memeTalkChannelIds.includes(message.channel.id))
+    if (cfg.memeTalkChannelIds.includes(message.channel.id) && (!message.author.bot))
       memeaddon.execute(message);
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
