@@ -27,5 +27,6 @@
 	"steve": "HEYOOOOOOOOOOOOOOOOOOOOOOOOOO",
 	"<:thor:561787358761189376>": "yee haw",
 	"doka": "SHE YEETED!!",
-	"toothie": "PepegaKing"
+	"toothie": "PepegaKing",
+	"matse": "if (cfg.memeTalkChannelIds.includes(message.channel.id)) memeaddon.execute(message) :)"
 }
