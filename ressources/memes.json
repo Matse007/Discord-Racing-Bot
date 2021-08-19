@@ -28,5 +28,6 @@
 	"<:thor:561787358761189376>": "yee haw",
 	"doka": "SHE YEETED!!",
 	"toothie": "PepegaKing",
-	"matse": "if (cfg.memeTalkChannelIds.includes(message.channel.id)) memeaddon.execute(message) :)"
+	"matse": "if (cfg.memeTalkChannelIds.includes(message.channel.id)) memeaddon.execute(message)",
+	"fmoptimist": "FEESH https://www.twitch.tv/fmoptimist_/clip/AverageGlamorousAyeayeTriHard-obmjcu6N_sGNlW-d"
 }
