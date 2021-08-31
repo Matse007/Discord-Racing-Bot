@@ -30,5 +30,6 @@
 	"toothie": "PepegaKing",
 	"matse": "if (cfg.memeTalkChannelIds.includes(message.channel.id)) memeaddon.execute(message)",
 	"fmoptimist": "The FMOptimist command is a myth as old as time. Each day, dedicated followers take time to post \"fmoptimist\" in the bot-talk channel of The Boop Troop discord, the central home of A Hat in Time Speedrunners. And each day, their posts go unanswered, left only to other followers to fill the gaps as to what might have been meant to beckon back. Rumors speak of gods and champions, the lordly \"FEESH\" who supposedly would bestow followers with a vision into the past, but these claims have no evidence. The highest followers swear on their lives of one in particular, of the mighty FEESH sacrificing FMOptimist, shared as the common tale to others in hopes of passing it on to future generations. To the outsider though, these followers appear insane, driven only by madness, spending each day patiently waiting for the day their god would return...",
-	"feesh": "FEESH https://www.twitch.tv/fmoptimist_/clip/AverageGlamorousAyeayeTriHard-obmjcu6N_sGNlW-d"
-}
+	"feesh": "FEESH https://www.twitch.tv/fmoptimist_/clip/AverageGlamorousAyeayeTriHard-obmjcu6N_sGNlW-d",
+	"doesthisusername": "Menu god https://clips.twitch.tv/ToughAverageYakinikuGOWSkull"
+}	
