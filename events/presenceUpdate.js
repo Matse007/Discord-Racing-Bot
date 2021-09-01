@@ -25,6 +25,5 @@ module.exports = {
         newPresence.member.roles.remove(streamrole).catch(console.error);
         
     }
-    console.log();
   },
 };
