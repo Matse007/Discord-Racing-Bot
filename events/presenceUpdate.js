@@ -8,22 +8,23 @@ module.exports = {
     //this requires that a streaming role does exist.
     streamrole = guild.roles.cache.find((r) => r.name === "Streaming"); 
     if (!newPresence.activities) return false;
-    let lenghtvar = newPresence.activities.length;
+    var isStreaming = false;
     newPresence.activities.forEach((activity) => {
-      if (activity.name === "Twitch" && activity.state === "A Hat in Time") {
-        console.log(new Date().toLocaleString());
-        newPresence.member.roles.add(streamrole).catch(console.error);
-        console.log(newPresence.member.user.tag + " assigned Stream Role");
-        return;
-      } else {
-        if(newPresence.member.roles.cache.has(streamrole.id)) {   
-        newPresence.member.roles.remove(streamrole).catch(console.error);
-        }
-      }
+      if (activity.name === "Twitch" && activity.state === "A Hat in Time")
+        isStreaming = true;
     });
-    if (newPresence.activities.length == 0 && newPresence.member.roles.cache.has(streamrole.id)) {
-        newPresence.member.roles.remove(streamrole).catch(console.error);
-        
+
+    if(isStreaming){
+      if(newPresence.member.roles.cache.has(streamrole.id)) return;
+      console.log(new Date().toLocaleString());
+      newPresence.member.roles.add(streamrole).catch(console.error);
+      console.log(newPresence.member.user.tag + " assigned Stream Role");
     }
+
+    if(!isStreaming && newPresence.member.roles.cache.has(streamrole.id)){
+      console.log(new Date().toLocaleString());
+      newPresence.member.roles.remove(streamrole).catch(console.error);
+      console.log(newPresence.member.user.tag + " removed Stream Role");
+    }  
   },
 };
